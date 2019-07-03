@@ -57,7 +57,7 @@ for i=2:1:size(y)-1
 end
 peaks=round(peaks*10)/10;
 
-figure(1);subplot(2,1,1);plot(x,y);
+figure(1);subplot(2,2,[1,2]);plot(x,y);
 if Logscale==1
     set(gca, 'XScale', 'log')
 end
@@ -90,7 +90,7 @@ y2=[];
 for i=1:1:size(y)
     y2=[y2;sum(y(1:i))];
 end
-figure(1);subplot(2,1,2);plot(x,y2);
+figure(1);subplot(2,3,[4,5]);plot(x,y2);
 if Logscale==1
     set(gca, 'XScale', 'log')
 end
@@ -103,6 +103,30 @@ xlim(xlimit);ylim([-10 110])
 title('% of Sample Under Size','FontSize',Font_Size);
 xlabel('Particle diameter (nm)','FontSize',Font_Size);
 ylabel({'Under Size','Distribution (%)'},'FontSize',Font_Size);
+
+y3=y2;
+for i=1:1:size(y3,1)
+    y3(i)=y3(i)+i*(10^-13);
+end
+Data=[
+99 interp1(y3,x,99);
+97.5 interp1(y3,x,97.5);
+84 interp1(y3,x,84);
+75 interp1(y3,x,75);
+62.5 interp1(y3,x,62.5);
+50 interp1(y3,x,50);
+37.5 interp1(y3,x,37.5);
+25 interp1(y3,x,25.0);
+16 interp1(y3,x,16);
+2.5 interp1(y3,x,2.5);
+1 interp1(y3,x,1);
+];
+
+
+f = figure(1);
+uit = uitable(f,'Data',Data,'Position',[558 87 153 221]);
+uit.ColumnName = {'%','Diameter nm',};
+uit.RowName = {};
 
 set(figure(1), 'color', 'white');
 set(figure(1), 'OuterPosition', [100,100,800,800]);
