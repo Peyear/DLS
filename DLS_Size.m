@@ -1,6 +1,6 @@
 clc;close all;clear all;
 File_Location='H:\DLS';
-File_name='20180525 HFIP_Triton 700uM 2';
+File_name='20170407 CHAPS,Triton, SDS, Ami_Sample 2';
 Font_Size=12;
 Logscale=1; %Logscale Select 1=Yes 0=No
 Type=1; %1 for Intensity
@@ -10,9 +10,9 @@ Type=1; %1 for Intensity
 cd(File_Location);
 Data=xlsread(File_name);
 
-i1=Data(3,1);
-i2=Data(4,1);
-i3=Data(5,1);
+hDiameter=Data(1,1);
+polyIndex=Data(2,1);
+diffCoeff=Data(21,1);
 
 ParticleDiameter=(Data([3:144],4));
 IntensityWeighted=Data([3:144],5);
@@ -57,7 +57,7 @@ for i=2:1:size(y)-1
 end
 peaks=round(peaks*10)/10;
 
-figure(1);subplot(2,2,[1,2]);plot(x,y);
+figure(1);subplot(16,16,[17:128]);plot(x,y);
 if Logscale==1
     set(gca, 'XScale', 'log')
 end
@@ -69,15 +69,15 @@ legend('off');
 xlim(xlimit);ylim(ylimit);
 
 if size(peaks,1)==1
-    title({'Peak Distribution',sprintf('Peak 1 = %g',peaks([1:1],1))},'FontSize',Font_Size);
+    title({sprintf('Hydrodynamic diameter = %g nm',hDiameter),sprintf('Polydispersity index = %g %%',polyIndex),sprintf('Diffusion coefficient = %g \\mum^2 / s',diffCoeff),sprintf('Peak 1 = %g',peaks([1:1],1))},'FontSize',Font_Size);
 elseif  size(peaks,1)==2
-	title({'Peak Distribution',sprintf('Peak 1 = %g Peak 2 = %g',peaks([1:2],1))},'FontSize',Font_Size);
+	title({sprintf('Hydrodynamic diameter = %g nm    PDI = %g %%',hDiameter,polyIndex),sprintf('Peak 1 = %g Peak 2 = %g',peaks([1:2],1))},'FontSize',Font_Size);
 elseif  size(peaks,1)==3
-	title({'Peak Distribution',sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g',peaks([1:3],1))},'FontSize',Font_Size);
+	title({sprintf('Hydrodynamic diameter = %g nm    PDI = %g %%',hDiameter,polyIndex),sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g',peaks([1:3],1))},'FontSize',Font_Size);
 elseif  size(peaks,1)==4
-	title({'Peak Distribution',sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g Peak 4 = %g',peaks([1:4],1))},'FontSize',Font_Size);
+	title({sprintf('Hydrodynamic diameter = %g nm    PDI = %g %%',hDiameter,polyIndex),sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g Peak 4 = %g',peaks([1:4],1))},'FontSize',Font_Size);
 elseif  size(peaks,1)==5
-	title({'Peak Distribution',sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g Peak 4 = %g Peak 5 = %g',peaks([1:5],1))},'FontSize',Font_Size);
+	title({sprintf('Hydrodynamic diameter = %g nm    PDI = %g %%',hDiameter,polyIndex),sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g Peak 4 = %g Peak 5 = %g',peaks([1:5],1))},'FontSize',Font_Size);
 end
 
 xlabel('Particle diameter (nm)','FontSize',Font_Size);
@@ -100,7 +100,6 @@ set(gca, 'box', 'off');
 set(gca,'FontSize',Font_Size*.666);
 legend('off');
 xlim(xlimit);ylim([-10 110])
-title('% of Sample Under Size','FontSize',Font_Size);
 xlabel('Particle diameter (nm)','FontSize',Font_Size);
 ylabel({'Under Size','Distribution (%)'},'FontSize',Font_Size);
 
