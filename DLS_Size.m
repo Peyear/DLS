@@ -123,10 +123,10 @@ Data=[
 
 
 f = figure(1);
-uit = uitable(f,'Data',Data,'Position',[558 87 153 221]);
-uit.ColumnName = {'%','Diameter nm',};
+uit = uitable(f,'Data',Data,'Position',[463,78,152,222]);
+uit.ColumnName = {'%','nm',};
 uit.RowName = {};
 
 set(figure(1), 'color', 'white');
-set(figure(1), 'OuterPosition', [100,100,800,800]);
+set(figure(1), 'OuterPosition', [100,100,700,800]);
 saveas(figure(1),sprintf('%s',File_name),'epsc');
