@@ -1,6 +1,6 @@
 clc;close all;clear all;
 File_Location='H:\DLS';
-File_name='20170407 CHAPS,Triton, SDS, Ami_Sample 2';
+File_name='20180525 HFIP_Triton 700uM 2';
 Font_Size=12;
 Logscale=1; %Logscale Select 1=Yes 0=No
 Type=1; %1 for Intensity
@@ -71,13 +71,13 @@ xlim(xlimit);ylim(ylimit);
 if size(peaks,1)==1
     title({sprintf('Hydrodynamic diameter = %g nm',hDiameter),sprintf('Polydispersity index = %g %%',polyIndex),sprintf('Diffusion coefficient = %g \\mum^2 / s',diffCoeff),sprintf('Peak 1 = %g',peaks([1:1],1))},'FontSize',Font_Size);
 elseif  size(peaks,1)==2
-	title({sprintf('Hydrodynamic diameter = %g nm    PDI = %g %%',hDiameter,polyIndex),sprintf('Peak 1 = %g Peak 2 = %g',peaks([1:2],1))},'FontSize',Font_Size);
+	title({sprintf('Hydrodynamic diameter = %g nm',hDiameter),sprintf('Polydispersity index = %g %%',polyIndex),sprintf('Diffusion coefficient = %g \\mum^2 / s',diffCoeff),sprintf('Peak 1 = %g Peak 2 = %g',peaks([1:2],1))},'FontSize',Font_Size);
 elseif  size(peaks,1)==3
-	title({sprintf('Hydrodynamic diameter = %g nm    PDI = %g %%',hDiameter,polyIndex),sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g',peaks([1:3],1))},'FontSize',Font_Size);
+	title({sprintf('Hydrodynamic diameter = %g nm',hDiameter),sprintf('Polydispersity index = %g %%',polyIndex),sprintf('Diffusion coefficient = %g \\mum^2 / s',diffCoeff),sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g',peaks([1:3],1))},'FontSize',Font_Size);
 elseif  size(peaks,1)==4
-	title({sprintf('Hydrodynamic diameter = %g nm    PDI = %g %%',hDiameter,polyIndex),sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g Peak 4 = %g',peaks([1:4],1))},'FontSize',Font_Size);
+	title({sprintf('Hydrodynamic diameter = %g nm',hDiameter),sprintf('Polydispersity index = %g %%',polyIndex),sprintf('Diffusion coefficient = %g \\mum^2 / s',diffCoeff),sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g Peak 4 = %g',peaks([1:4],1))},'FontSize',Font_Size);
 elseif  size(peaks,1)==5
-	title({sprintf('Hydrodynamic diameter = %g nm    PDI = %g %%',hDiameter,polyIndex),sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g Peak 4 = %g Peak 5 = %g',peaks([1:5],1))},'FontSize',Font_Size);
+	title({sprintf('Hydrodynamic diameter = %g nm',hDiameter),sprintf('Polydispersity index = %g %%',polyIndex),sprintf('Diffusion coefficient = %g \\mum^2 / s',diffCoeff),sprintf('Peak 1 = %g Peak 2 = %g Peak 3 = %g Peak 4 = %g Peak 5 = %g',peaks([1:5],1))},'FontSize',Font_Size);
 end
 
 xlabel('Particle diameter (nm)','FontSize',Font_Size);
