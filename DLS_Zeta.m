@@ -1,44 +1,64 @@
 clc;close all;clear all;
-File_name='20170407 CHAPS,Triton, SDS, Ami_DEPC_zeta';
-File_Location='H:\DLS';
 
-cd(File_Location);
-Data=xlsread(File_name);
+j = 1;
+AllSamples{j}.File_name      = 'Sara_20190823 45% LUVs - Zeta'; 
+AllSamples{j}.File_Location  = 'G:\Stopped Flow Exp\00.Sara\Zeta-DEPS';
+AllSamples{j}.Sample_name   = 'Control'; 
+j = 2;
+AllSamples{j}.File_name      = 'Sara_20190823 10uM Kan 45% LUVs - Zeta'; 
+AllSamples{j}.File_Location  = 'G:\Stopped Flow Exp\00.Sara\Zeta-DEPS';
+AllSamples{j}.Sample_name   = '10 \muM Kan'; 
+j = 3;
+AllSamples{j}.File_name      = 'Sara_20190823 100uM Kan 45% LUVs - Zeta'; 
+AllSamples{j}.File_Location  = 'G:\Stopped Flow Exp\00.Sara\Zeta-DEPS';
+AllSamples{j}.Sample_name   = '100 \muM Kan'; 
+j = 4;
+AllSamples{j}.File_name      = 'Sara_20190823 300uM Kan 45% LUVs - Zeta'; 
+AllSamples{j}.File_Location  = 'G:\Stopped Flow Exp\00.Sara\Zeta-DEPS';
+AllSamples{j}.Sample_name   = '300 \muM Kan'; 
+j = 5;
+AllSamples{j}.File_name      = 'Sara_20190823 1000uM Kan 45% LUVs - Zeta'; 
+AllSamples{j}.File_Location  = 'G:\Stopped Flow Exp\00.Sara\Zeta-DEPS';
+AllSamples{j}.Sample_name   = '1000 \muM Kan'; 
 
-ZetaPotential=1000*(Data([3:406],4));
-RelativeFrequency=Data([3:406],5);
-MeanZetaPotential=1000*Data(1,1);
-StandardDeviation=1000*Data(2,1);
-
-for i=1:1:size(RelativeFrequency,1)
-    if RelativeFrequency(i)>0
-        a1=ZetaPotential(i-1);
+legendzeta={' '};
+for A=10000:-1:1;
+    try 
+        AllSamples{j}.File_name;
+        A=j;
     break;end
 end
-for i=size(RelativeFrequency,1):-1:1
-    if RelativeFrequency(i)>0
-        a2=ZetaPotential(i+1);
-    break;end
+
+for i=1:A
+cd(char(AllSamples{i}.File_Location));
+Data=xlsread(char(AllSamples{i}.File_name));
+
+ZetaPotential=(Data([3:end],4));
+RelativeFrequency=Data([3:end],5);
+MeanZetaPotential=Data(1,1);
+StandardDeviation=Data(2,1);
+
+for k=size(RelativeFrequency,1):-1:1
+    if RelativeFrequency(k)==0
+        ZetaPotential(k)=[];
+        RelativeFrequency(k)=[];
+    end
 end
 
-xlimit=[a1 a2];
-
-plot(ZetaPotential,RelativeFrequency,'r-','LineWidth',1.0);
-ylim([-max(RelativeFrequency)/40 max(RelativeFrequency)*1.025]); 
-title(strcat(sprintf('%g ',round(MeanZetaPotential,1)),' mV \pm ',sprintf(' %g',round(StandardDeviation,1))));
-xlim(xlimit);
+figure(1)
+plot(ZetaPotential,RelativeFrequency,'-','LineWidth',1.0);hold on
+legendb=char(AllSamples{i}.Sample_name);
+legenda=strcat(sprintf('%g ',round(MeanZetaPotential,1)),' mV \pm ',sprintf(' %g --',round(StandardDeviation,1)),legendb);
+legendzeta=cat(1,legendzeta,legenda);
 xlabel('Zeta Potential / mV');
 ylabel({'Relative Frequency / %'});
-
+%legend(legendzeta(2:end),'Location','northeastoutside')
+legend(legendzeta(2:end),'Location','southoutside')
+end
 set(gca,'LineWidth',1.0,'TickLength',[0.02 0])
 set(gca, 'TickDir', 'out');
 set(gca, 'box', 'off')
 set(gca, 'color', 'white');
-
-mean=sum(ZetaPotential.*RelativeFrequency)/sum(RelativeFrequency)
-stdev=[];
-for i=1:1:size(RelativeFrequency,1);
-    stdev1=((ZetaPotential(i)-mean)^2)*RelativeFrequency(i);
-    stdev=[stdev;stdev1];
-end
-stdev2=(sum(stdev)/sum(RelativeFrequency))^.5
+set(figure(1), 'color', 'white');
+set(figure(1), 'OuterPosition', [100,100,400,600]);
+%saveas(figure(1), legendb, 'pdf');
