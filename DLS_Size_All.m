@@ -154,7 +154,7 @@ ylabel({'Under Size','Distribution (%)'},'FontSize',Font_Size);
 
 end
 figure(1);subplot(2,1,1);
-plot(plabels(:,1),plabels(:,2),'o');
+plot(plabels(:,1),plabels(:,2),'kx');
 legendpeak=cat(1,legendpeak,'Peaks');
 legend(legendpeak([2:end]),'Location','northeastoutside');
 
